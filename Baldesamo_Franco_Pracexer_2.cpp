@@ -6,13 +6,12 @@
 using namespace std;
 class Node
 {
- public:
+public:
 
 	string name;
-	int age{};
+	int age{};//new knowledge {} is called array_literal
 	Node* left = NULL;
 	Node* right = NULL;
-	
 };
 void getData(Node*& nNode)
 {
@@ -21,10 +20,7 @@ void getData(Node*& nNode)
 	cin >> nNode->name;
 	cout << "Enter age: ";
 	cin >> nNode->age;
-	
-	
 };
-
 void insertNode(Node*& head, Node*& tail, int pos, Node*& n) {
 	if (head == NULL) {
 		head = n;
@@ -58,58 +54,66 @@ void insertNode(Node*& head, Node*& tail, int pos, Node*& n) {
 	}
 };
 
-//void delNode(Node*& head, Node* tail, int pos) {
-//
-//	if (head == NULL) {
-//		cout << "The list is empty.";
-//	}
-//	else {
-//		Node* nodeToDel;
-//
-//
-//		if (pos == 1) {
-//			nodeToDel = head;
-//
-//
-//			head = head->right;
-//			head->left = NULL;
-//			delete nodeToDel;
-//		}
-//		else {
-//			nodeToDel = head;
-//
-//			Node* prevNode;
-//
-//
-//
-//
-//			while (nodeToDel->right != NULL && pos > 1) {
-//				prevNode = nodeToDel;
-//				nodeToDel = nodeToDel->right;
-//				pos--;
-//			}
-//			if (nodeToDel == tail) {
-//				prevNode->right = NULL;
-//				tail = prevNode;
-//				delete nodeToDel;
-//			}
-//			else
-//				prevNode->right = NULL;
-//				nodeToDel->left = NULL;
-//				nodeToDel->right = NULL;
-//				prevNode->right = nodeToDel->right;
-//				nodeToDel->left = prevNode->right;
-//
-//
-//				nodeToDel->right->left = prevNode;
-//
-//
-//
-//				delete nodeToDel;
-//
-//		}
-//	}
-//}
+void delNode(Node*& head, Node* tail, int pos,Node*& n) {
+	if (head == NULL) {
+		cout << "The list is empty.";
+	}
+	else {
+		Node* nodeToDel;
+
+		if (pos == 1) {
+			nodeToDel = head;
+
+			head = head->right;
+			head->left = NULL;
+			delete nodeToDel;
+		}
+		else {
+			nodeToDel = head;
+
+			Node* prevNode{};
+
+			while (nodeToDel->right != NULL && pos >= 2) {
+				prevNode = nodeToDel;
+				nodeToDel = nodeToDel->right;
+				pos--;
+			}
+			if (nodeToDel == tail) {
+				prevNode->right = NULL;
+				tail = prevNode;
+				delete nodeToDel;
+			}
+			else {
+				Node* prevNode{};
+				/*prevNode->right = NULL;
+				nodeToDel->left = NULL;
+
+				prevNode->right = nodeToDel->right;
+				nodeToDel->left = prevNode->right;*/
+
+				/*nodeToDel->right = NULL;*/
+
+				prevNode->right = NULL; 
+				prevNode->right = nodeToDel->right;
+
+				nodeToDel->right = NULL;
+				nodeToDel->right = prevNode->right;
+				/*nodeToDel->right = prevNode->right;*/
+				//nodeToDel->right/*->left*/ = prevNode;
+
+				// 
+				//
+				//nodeToDel->right;
+
+				delete nodeToDel;
+
+
+
+			}
+				
+		}
+	}
+}
 void printDataLR(Node* head) {
 	Node* temp = head;
 	while (temp != NULL)
@@ -130,10 +134,12 @@ int main()
 	insertNode(head, tail, 1, nNode);
 
 	getData(nNode);
-	insertNode(head, tail, 3, nNode);
+	insertNode(head, tail, 2, nNode);
 
 	getData(nNode);
-	insertNode(head, tail, 2, nNode);
+	insertNode(head, tail, 3, nNode);
+
+	delNode(head, tail, 2, nNode);
 
 	printDataLR(head);
 	return 0;
