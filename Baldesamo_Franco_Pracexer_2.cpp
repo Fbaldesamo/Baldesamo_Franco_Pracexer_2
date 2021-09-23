@@ -6,11 +6,13 @@
 using namespace std;
 class Node
 {
-public:
+ public:
+
 	string name;
-	int age;
+	int age{};
 	Node* left = NULL;
 	Node* right = NULL;
+	
 };
 void getData(Node*& nNode)
 {
@@ -19,107 +21,104 @@ void getData(Node*& nNode)
 	cin >> nNode->name;
 	cout << "Enter age: ";
 	cin >> nNode->age;
-}
-void insertDataLast(Node*& head, Node*& tail,int pos, Node*& n) {
+	
+	
+};
+
+void insertNode(Node*& head, Node*& tail, int pos, Node*& n) {
 	if (head == NULL) {
 		head = n;
 		tail = n;
 	}
-	else {
+	else
+	{
 		if (pos == 1) {
 			head->left = n;
 			n->right = head;
 			head = n;
-
-
 		}
-		else{
+		else {
 			Node* prevNode = head;
-			while (prevNode->right != NULL && pos > 2) {
+			while (prevNode->right != NULL && pos >= 2) {
 				prevNode = prevNode->right;
 				pos--;
 			}
 			if (prevNode == tail) {
-
 				n->left = prevNode;
 				prevNode->right = n;
 				tail = n;
 			}
-			else{
-				prevNode->right->left = n;
-				n->right = prevNode->right;
+			else {
+				prevNode->right/*->left*/ = n;
+				n->left = prevNode->right;
 				prevNode->right = n;
 				n->left = prevNode;
-
-
-
 			}
-
-
-
-		}
-		
-	}
-}
-
-void delNode(Node*& head, Node* tail,int pos) {
-
-	if (head == NULL)
-		cout << "The list is empty.";
-	else {
-
-		Node* nodeToDel;
-		if (pos == 1) {
-			nodeToDel = head;
-			head = head->right;
-			head->left = NULL;
-			delete nodeToDel;
-
-
-		}
-		else {
-			nodeToDel = head;
-			Node* prevNode;
-			while (nodeToDel->right != NULL && pos > 1) {
-
-
-				prevNode = nodeToDel;
-				nodeToDel = nodeToDel->right;
-				pos--;
-
-			}
-			if (nodeToDel == tail) {
-
-				prevNode->right = NULL;
-				tail = prevNode;
-				delete nodeToDel;
-			}
-			else {
-
-				nodeToDel->right->left = prevNode;
-				prevNode->right = nodeToDel->right;
-				delete nodeToDel;
-			}
-
-
-
 		}
 	}
+};
 
-
-
-
-
-}
+//void delNode(Node*& head, Node* tail, int pos) {
+//
+//	if (head == NULL) {
+//		cout << "The list is empty.";
+//	}
+//	else {
+//		Node* nodeToDel;
+//
+//
+//		if (pos == 1) {
+//			nodeToDel = head;
+//
+//
+//			head = head->right;
+//			head->left = NULL;
+//			delete nodeToDel;
+//		}
+//		else {
+//			nodeToDel = head;
+//
+//			Node* prevNode;
+//
+//
+//
+//
+//			while (nodeToDel->right != NULL && pos > 1) {
+//				prevNode = nodeToDel;
+//				nodeToDel = nodeToDel->right;
+//				pos--;
+//			}
+//			if (nodeToDel == tail) {
+//				prevNode->right = NULL;
+//				tail = prevNode;
+//				delete nodeToDel;
+//			}
+//			else
+//				prevNode->right = NULL;
+//				nodeToDel->left = NULL;
+//				nodeToDel->right = NULL;
+//				prevNode->right = nodeToDel->right;
+//				nodeToDel->left = prevNode->right;
+//
+//
+//				nodeToDel->right->left = prevNode;
+//
+//
+//
+//				delete nodeToDel;
+//
+//		}
+//	}
+//}
 void printDataLR(Node* head) {
 	Node* temp = head;
 	while (temp != NULL)
 	{
-		cout << temp->name << " ";
-		cout << temp->age << endl;
+		cout << " " << temp->name;
+		cout << " " << temp->age << endl;
 		temp = temp->right;
 	}
-}
+};
 
 int main()
 {
@@ -128,20 +127,17 @@ int main()
 	Node* nNode;
 
 	getData(nNode);
-	
-	getData(nNode);
-	
-	getData(nNode);
+	insertNode(head, tail, 1, nNode);
 
 	getData(nNode);
+	insertNode(head, tail, 3, nNode);
 
 	getData(nNode);
-
-
+	insertNode(head, tail, 2, nNode);
 
 	printDataLR(head);
 	return 0;
-}
+};
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
