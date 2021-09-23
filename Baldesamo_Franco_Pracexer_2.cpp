@@ -54,7 +54,7 @@ void insertNode(Node*& head, Node*& tail, int pos, Node*& n) {
 	}
 };
 
-void delNode(Node*& head, Node* tail, int pos,Node*& n) {
+void delNode(Node*& head, Node* tail, int pos, Node*& n) {
 	if (head == NULL) {
 		cout << "The list is empty.";
 	}
@@ -79,38 +79,22 @@ void delNode(Node*& head, Node* tail, int pos,Node*& n) {
 				pos--;
 			}
 			if (nodeToDel == tail) {
+				Node* prevNode{};
+				prevNode = head;
 				prevNode->right = NULL;
 				tail = prevNode;
 				delete nodeToDel;
 			}
 			else {
-				Node* prevNode{};
-				/*prevNode->right = NULL;
-				nodeToDel->left = NULL;
-
-				prevNode->right = nodeToDel->right;
-				nodeToDel->left = prevNode->right;*/
-
-				/*nodeToDel->right = NULL;*/
-
-				prevNode->right = NULL; 
+				prevNode = head;
+				prevNode->right  = NULL;
 				prevNode->right = nodeToDel->right;
 
-				nodeToDel->right = NULL;
+				nodeToDel->right  = NULL;
 				nodeToDel->right = prevNode->right;
-				/*nodeToDel->right = prevNode->right;*/
-				//nodeToDel->right/*->left*/ = prevNode;
-
-				// 
-				//
-				//nodeToDel->right;
 
 				delete nodeToDel;
-
-
-
 			}
-				
 		}
 	}
 }
