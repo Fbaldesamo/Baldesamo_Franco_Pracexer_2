@@ -35,7 +35,7 @@ void insertNode(Node*& head, Node*& tail, int pos, Node*& n) {
 		}
 		else {
 			Node* prevNode = head;
-			while (prevNode->right != NULL && pos >= 2) {
+			while (prevNode->right != NULL && pos > 1) {
 				prevNode = prevNode->right;
 				pos--;
 			}
@@ -45,8 +45,6 @@ void insertNode(Node*& head, Node*& tail, int pos, Node*& n) {
 				tail = n;
 			}
 			else {
-				prevNode->right/*->left*/ = n;
-				n->left = prevNode->right;
 				prevNode->right = n;
 				n->left = prevNode;
 			}
@@ -131,15 +129,17 @@ int main()
 	cout << "(PLS ANSWER WITH ALL CAPS EX: YES/NO) ";
 	cin >> userDEC;
 	//repetition if user still want to input
-	while (userDEC == "YES") {
-		getData(nNode);
-		insertNode(head, tail, 5, nNode);
-		printDataLR(head);
 
-		cout << "Do you still want to add input? ";
-		cin >> userDEC;
-		if (userDEC == "NO") {
-			break;
+	while (userDEC == "YES") {
+		for (int i = 4; i < 10; i++) {
+			getData(nNode);
+			insertNode(head, tail, i, nNode);
+			printDataLR(head);
+			cout << "Do you still want to add input? ";
+			cin >> userDEC;
+			if (userDEC == "NO") {
+				break;
+			}
 		}
 	}
 
@@ -152,25 +152,33 @@ int main()
 	cout << "Choice: ";
 	cin >> userChoice;
 
-	if (userChoice == 1) {
-		//insert
-		int locChoice;
-		getData(nNode);
-		cout << "What number of location u want to put it? ";
-		cin >> locChoice;
-		insertNode(head, tail, locChoice, nNode);
-		cout << "\nList:\n";
-		printDataLR(head);
-	}
-	else if (userChoice == 2) {
-		printDataLR(head);
+	while (userChoice != 3) {
+		if (userChoice == 1) {
+			//insert
+			int locChoice;
+			getData(nNode);
+			cout << "What number of location u want to put it? ";
+			cin >> locChoice;
+			insertNode(head, tail, locChoice, nNode);
+			cout << "\nList:\n";
+			printDataLR(head);
+			cout << "-----------------\n";
+			cout << "1-insert";
+			cout << "\n2-delete\n";
+			cout << "3-EXIT\n";
+			cout << "Choice: ";
+			cin >> userChoice;
+		}
+		else if (userChoice == 2) {
+			printDataLR(head);
 
-		cout << "What part of list u want to delete? ";
-		int locChoice;
-		cin >> locChoice;
-		delNode(head, tail, locChoice, nNode);
-		cout << "After the Deletion:\n";
-		printDataLR(head);
+			cout << "What part of list u want to delete? ";
+			int locChoice;
+			cin >> locChoice;
+			delNode(head, tail, locChoice, nNode);
+			cout << "After the Deletion:\n";
+			printDataLR(head);
+		}
 	}
 
 	return 0;
