@@ -9,7 +9,7 @@ class Node
 public:
 
 	string name;
-	int age{};//new knowledge {} is called array_literal
+	int age{};
 	Node* left = NULL;
 	Node* right = NULL;
 };
@@ -53,7 +53,6 @@ void insertNode(Node*& head, Node*& tail, int pos, Node*& n) {
 		}
 	}
 };
-
 void delNode(Node*& head, Node* tail, int pos, Node*& n) {
 	if (head == NULL) {
 		cout << "The list is empty.";
@@ -72,6 +71,7 @@ void delNode(Node*& head, Node* tail, int pos, Node*& n) {
 			nodeToDel = head;
 
 			Node* prevNode{};
+			prevNode = head;
 
 			while (nodeToDel->right != NULL && pos >= 2) {
 				prevNode = nodeToDel;
@@ -79,18 +79,17 @@ void delNode(Node*& head, Node* tail, int pos, Node*& n) {
 				pos--;
 			}
 			if (nodeToDel == tail) {
-				Node* prevNode{};
-				prevNode = head;
 				prevNode->right = NULL;
+
 				tail = prevNode;
+
 				delete nodeToDel;
 			}
 			else {
-				prevNode = head;
-				prevNode->right  = NULL;
+				prevNode->right = NULL;
 				prevNode->right = nodeToDel->right;
 
-				nodeToDel->right  = NULL;
+				nodeToDel->right = NULL;
 				nodeToDel->right = prevNode->right;
 
 				delete nodeToDel;
@@ -113,19 +112,67 @@ int main()
 	Node* head = NULL;
 	Node* tail = NULL;
 	Node* nNode;
+	string userDEC;
+	int userChoice;
 
+	//ask the first 4 input
 	getData(nNode);
 	insertNode(head, tail, 1, nNode);
-
 	getData(nNode);
 	insertNode(head, tail, 2, nNode);
-
 	getData(nNode);
 	insertNode(head, tail, 3, nNode);
-
-	delNode(head, tail, 2, nNode);
-
+	getData(nNode);
+	insertNode(head, tail, 4, nNode);
 	printDataLR(head);
+	//if user want to input
+	cout << "Do you still want to add input? ";
+
+	cout << "(PLS ANSWER WITH ALL CAPS EX: YES/NO) ";
+	cin >> userDEC;
+	//repetition if user still want to input
+	while (userDEC == "YES") {
+		getData(nNode);
+		insertNode(head, tail, 5, nNode);
+		printDataLR(head);
+
+		cout << "Do you still want to add input? ";
+		cin >> userDEC;
+		if (userDEC == "NO") {
+			break;
+		}
+	}
+
+	cout << "\nList: \n";
+	printDataLR(head);
+	cout << "-----------------\n";
+	cout << "1-insert";
+	cout << "\n2-delete\n";
+	cout << "3-EXIT\n";
+	cout << "Choice: ";
+	cin >> userChoice;
+
+	if (userChoice == 1) {
+		//insert
+		int locChoice;
+		getData(nNode);
+		cout << "What number of location u want to put it? ";
+		cin >> locChoice;
+		insertNode(head, tail, locChoice, nNode);
+		cout << "\nList:\n";
+		printDataLR(head);
+	}
+	else if (userChoice == 2) {
+		printDataLR(head);
+
+		cout << "What part of list u want to delete? ";
+		int locChoice;
+		cin >> locChoice;
+		delNode(head, tail, locChoice, nNode);
+		cout << "After the Deletion:\n";
+		printDataLR(head);
+	}
+
 	return 0;
 };
 
